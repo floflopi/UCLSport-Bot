@@ -1,18 +1,15 @@
-from ast import Bytes
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-#pyinstaller --onefile --hidden-import selenium --distpath . automate_UCLsport.py
 import cv2
 import re
 import os
 import time
 import sys
 from datetime import datetime
-import cv2
 from ffpyplayer.player import MediaPlayer
 
 
@@ -26,7 +23,7 @@ programme = lignes[2].strip().split("-")[1]
 jour = lignes[3].strip().split("-")[1]
 heuredebut = lignes[4].strip().split("-")[1]
 heurefin = lignes[5].strip().split("-")[1]
-
+easteregg = lignes[6].strip().split("-")[1]
 current_datetime = datetime.combine(datetime.now().date(), datetime.min.time())
 """Set up webdriver."""
 options = Options()
@@ -132,8 +129,8 @@ try:
             driver.execute_script("arguments[0].click();",button)
 except Exception as e:
     print("you are already registered")
-    if ()
-    running_videos(video_path)
+    if (easteregg == "1"):
+        running_videos(video_path)
 finally:
     driver.quit()
 
