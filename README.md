@@ -40,7 +40,7 @@ Vous pouvez toujours lancer votre antivirus pour vous assurer que le programme n
 Si vous pensez toujours que le programme est un virus,
 automate_UCLsport.exe a été généré grâce à pyinstaller pour transformer un fichier .py en .exe. Vous pouvez alors inspecter directement le fichier .py et runnez vous-même la commande pour générer le fichier .exe: 
 ```bash
-pyinstaller --onefile --hidden-import selenium --hidden-import selenium.webdriver.firefox.service --hidden-import selenium.webdriver.firefox.options --hidden-import selenium.webdriver.common.by --hidden-import selenium.webdriver.support.ui --hidden-import selenium.webdriver.support --hidden-import cv2 --hidden-import os --hidden-import re --hidden-import time --hidden-import sys --hidden-import datetime --hidden-import ffpyplayer.player --distpath . automate_UCLsport.py
+pyinstaller --onefile --hidden-import selenium --hidden-import cv2 --hidden-import os --hidden-import re --hidden-import time --hidden-import sys --hidden-import datetime --hidden-import ffpyplayer.player.MediaPlayer --distpath . automate_UCLsport.py
 ```
 
 ### **Comment je fais pour arrêter le bot de m'inscrire à une séance ?**
