@@ -4,41 +4,34 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import cv2
 import re
 import os
 import time
 import sys
 from datetime import datetime
-from ffpyplayer.player import MediaPlayer
 
 
-
-with open("info.txt", "r") as fichier:
-    lignes = fichier.readlines()
-
-username_str = lignes[0].strip().split("-")[1]
-password_str = lignes[1].strip().split("-")[1]
-programme = lignes[2].strip().split("-")[1]
-jour = lignes[3].strip().split("-")[1]
-heuredebut = lignes[4].strip().split("-")[1]
-heurefin = lignes[5].strip().split("-")[1]
-easteregg = lignes[6].strip().split("-")[1]
-current_datetime = datetime.combine(datetime.now().date(), datetime.min.time())
-"""Set up webdriver."""
-options = Options()
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-
-geckodriver_path = os.path.join(os.getcwd(), "geckodriver.exe")
-driver_service = Service(executable_path=geckodriver_path)
 try:
+    with open("info.txt", "r") as fichier:
+        lignes = fichier.readlines()
+    username_str = lignes[0].strip().split("-")[1]
+    password_str = lignes[1].strip().split("-")[1]
+    programme = lignes[2].strip().split("-")[1]
+    jour = lignes[3].strip().split("-")[1]
+    heuredebut = lignes[4].strip().split("-")[1]
+    heurefin = lignes[5].strip().split("-")[1]
+    current_datetime = datetime.combine(datetime.now().date(), datetime.min.time())
+    """Set up webdriver."""
+    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    geckodriver_path = os.path.join(os.getcwd(), "geckodriver.exe")
+    driver_service = Service(executable_path=geckodriver_path)
     driver = webdriver.Firefox(options=options, service=driver_service)
     driver.get("https://sites.uclouvain.be/uclsport/register")
     #wait page has been charged
     wait = WebDriverWait(driver, 10)
     wait.until(lambda driver: driver.execute_script("return document.readyState") == "complete")
-
     username = driver.find_element("id", "input-account")
     password = driver.find_element("id","input-password")
     username.send_keys(username_str)
@@ -55,7 +48,6 @@ try:
     for button in buttons:
         if ("date_range" in button.text):
             driver.execute_script("arguments[0].click();",button) # connexion to horaires 
-
     time.sleep(0.5)
     buttons = driver.find_elements("css selector","h6[class='mb-0 text-nowrap']")
 
@@ -89,37 +81,12 @@ try:
                 if ("btn btn-primary btn-block" in button.get_attribute("class") and button.text == "INSCRIPTION"):
                     driver.execute_script("arguments[0].click();",button)
 except Exception as e:
-    print("an error occured")
+    error_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "error.txt")
+    with open(error_file_path, "a") as error_file:
+        error_file.write(f"An error occurred: {str(e)}\n")
     sys.exit()
 #wait for confirmation popup
 time.sleep(2)
-video_path = os.path.join(os.getcwd(),r"build\automate_UCLsport\localpycs\UCLSport.mp4")
-def getVideoSource(source, width, height):
-    cap = cv2.VideoCapture(source)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-    return cap
-def running_videos(sourcePath):
-   
-    camera = getVideoSource(sourcePath, 720, 480)
-    player = MediaPlayer(sourcePath)
-
-    while True:
-        ret, frame = camera.read()
-        audio_frame, val = player.get_frame()
-
-        if (ret == 0):
-            print("End of video")
-            break
-
-        frame = cv2.resize(frame, (720, 480))
-        cv2.imshow('Camera', frame)
-
-        if cv2.waitKey(24) & 0xFF == ord('q'):
-            break
-
-    camera.release()
-    cv2.destroyAllWindows()
 try:
     body = driver.find_element("css selector","[class='modal-footer']")
     buttons = body.find_elements("css selector","[type='button']")
@@ -129,8 +96,9 @@ try:
             driver.execute_script("arguments[0].click();",button)
 except Exception as e:
     print("you are already registered")
-    if (easteregg == "1"):
-        running_videos(video_path)
+    error_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "error.txt")
+    with open(error_file_path, "a") as error_file:
+        error_file.write(f"An error occurred: {str(e)}\n")
 finally:
     driver.quit()
 

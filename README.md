@@ -11,7 +11,6 @@ program-Musculation
 jour-LU
 HeureDebut-21:00
 HeureFin-21:00
-EasterEgg-1
 ```
 **username :** votre username UCLSport  
 **password :** votre mot de passe UCLSport  
@@ -19,7 +18,6 @@ EasterEgg-1
 **jour :** le jour auquel vous voulez vous inscrire  
 **HeureDebut :** l'heure à laquelle votre séance de sport commence  
 **HeureFin :** l'heure à laquelle votre séance de sport se termine  
-**EasterEgg :** (0/1) Si vous voulez inclure l'easter egg dans le programme ou non
 
 jour valide : LU-MA-ME-JE-VE-SA-DI  
 Heure valide : 00:00 21:30 etc
@@ -65,7 +63,7 @@ Vous pouvez toujours lancer votre antivirus pour vous assurer que le programme n
 Si vous pensez toujours que le programme est un virus,
 automate_UCLsport.exe a été généré grâce à pyinstaller pour transformer un fichier .py en .exe. Vous pouvez alors inspecter directement le fichier .py et runnez vous-même la commande pour générer le fichier .exe: 
 ```bash
-pyinstaller --onefile --hidden-import selenium --hidden-import cv2 --hidden-import os --hidden-import re --hidden-import time --hidden-import sys --hidden-import datetime --hidden-import ffpyplayer.player.MediaPlayer --distpath . automate_UCLsport.py
+pyinstaller --onefile --hidden-import selenium --hidden-import os --hidden-import re --hidden-import time --hidden-import sys --hidden-import datetime --distpath . automate_UCLsport.py
 ```
 ### **Le bot ne marche plus que dois je faire ?**
 Si le bot ne marche plus vous pouvez toujours envoyer un mail à 

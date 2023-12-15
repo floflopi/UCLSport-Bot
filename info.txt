@@ -4,4 +4,3 @@ program-Musculation
 jour-LU
 HeureDebut-21:00
 HeureFin-21:00
-EasterEgg-1
